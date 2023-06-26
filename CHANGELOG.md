@@ -1,4 +1,8 @@
 # Changelog
+## [1.4.1] - 2023 - 07-26
+- permissive cors for testing
+- removed submodules
+
 ## [1.4.0] - 2023 - 06-08
 - refactored and streamlined webRTC signalling server
 - use socketIds for signalling rather than client-generated Ids
