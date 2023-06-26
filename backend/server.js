@@ -3,9 +3,14 @@ require('dotenv').config()
 
 const fs = require('fs')
 const express = require('express')
+var cors = require('cors')
+
 const app = express()
 const path = require('path')
 var http = require('http')
+
+app.use(cors())
+
 var server = http.createServer(app)
 //
 // TURN server access
@@ -16,7 +21,11 @@ if (process.env.TWILIO_SID) {
   var twilio_client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH)
 }
 
-var io = require('socket.io')(server)
+var io = require('socket.io')(server, {cors: {
+  origin: true,
+  // methods: ["GET", "POST"],
+  credentials: true,
+}})
 require('./twitter-gallery.js')(app)
 
 // create a server on port 8000
