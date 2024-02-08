@@ -26,7 +26,7 @@ var io = require('socket.io')(server, {cors: {
   // methods: ["GET", "POST"],
   credentials: true,
 }})
-require('./twitter-gallery.js')(app)
+require('./mastodon-gallery.js')(app)
 
 // create a server on port 8000
 var httpsPort = process.env.HTTPS_PORT !== undefined ? process.env.HTTPS_PORT : 8000
