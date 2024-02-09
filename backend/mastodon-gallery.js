@@ -124,23 +124,24 @@ module.exports = (app) => {
         let description = `${req.query.url} created by ${req.query.name}`
        
         if (masto_id !== null) {
-         // console.log("FOUND PARENT", masto_id)
+         console.log("FOUND PARENT", masto_id)
           description += `
 
 (based on https://botsin.space/@hydra/${masto_id})`
         }
+        console.log('posting image', req.query.name, req.query.url, req.file)
         const attachment1 = masto.v2.media.create({
           file: new Blob([req.file.buffer]),
           description: req.query.name,
         }).then((attachment) => {
-          // console.log('created attachment')
+           console.log('created attachment')
           const status = masto.v1.statuses.create({
             status: description,
             visibility: "unlisted",
             mediaIds: [attachment.id],
             "in_reply_to_id": masto_id
           }).then((status) => {
-            // console.log('posted with status', status, status.id, status.url)
+             console.log('posted with status', status, status.id, status.url)
             res.status(200).send(status.url);
             db.update(
               { _id: req.query.sketch_id },
@@ -149,10 +150,11 @@ module.exports = (app) => {
               function (err, numReplaced) { }
             );
           }).catch((err) => {
-              console.warn(err)
+              console.log(err)
               res.status(500).send('error creating image attachment')
             });
         }).catch((err) => {
+          console.log(err)
           res.status(500).send('error creating image attachment')
         });
       })
