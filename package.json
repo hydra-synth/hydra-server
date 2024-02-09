@@ -20,6 +20,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "cors": "^2.8.5",
     "hydra-synth": "^1.3.27",
     "masto": "^6.5.2",
     "mastodon-api": "^1.3.0"
